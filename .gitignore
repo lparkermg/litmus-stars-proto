@@ -32,3 +32,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Rider junk
+.idea/
+
+# Mac junk
+.DS_Store
