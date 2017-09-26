@@ -14,12 +14,6 @@ public class LevelManager : MonoBehaviour
 
 	//Test
 	public int Seed = 0;
-	// Use this for initialization
-	void Start () 
-	{
-		GenerateLevel (Seed);
-		StartLevel ();
-	}
 	
 	// Update is called once per frame
 	void Update () 
@@ -27,8 +21,10 @@ public class LevelManager : MonoBehaviour
 
 	}
 
-	public void GenerateLevel(int seed){
+	public List<Transform> GenerateLevel(int seed){
 		Random.InitState (seed);
+		List<Transform> planetTransforms = new List<Transform> ();
+		planetTransforms.Add (StarLocation);
 		int planetCount = Random.Range (MinPlanets, MaxPlanets);
 		float lastX = 2f;
 		float lastY = 2f;
@@ -36,15 +32,18 @@ public class LevelManager : MonoBehaviour
 			GameObject planetObject = GameObject.Instantiate (PlanetPrefab, StarLocation) as GameObject;
 			float startProgress = Random.Range (0f, 1f);
 			float orbitPeriod = Random.Range (10f, 40f);
-			float x = Random.Range (lastX - startProgress, lastX + 10f);
-			float y = Random.Range (lastY - startProgress, lastY + 10f);
+			float x = Random.Range (lastX + 1f, lastX + 4f);
+			float y = Random.Range (lastY + 1f, lastY + 4f);
 			Vector2 orbit = new Vector2 (x, y);
 			lastX = x;
 			lastY = y;
 			OrbitController planet = planetObject.GetComponent<OrbitController> ();
 			planet.Initialise (startProgress, orbitPeriod, orbit, i);
+			planetTransforms.Add (planet.GetPlanetTransform ());
 			_planets.Add (planet);
 		}
+		Debug.Log (planetTransforms.Count);
+		return planetTransforms;
 	}
 
 	public void StartLevel(){

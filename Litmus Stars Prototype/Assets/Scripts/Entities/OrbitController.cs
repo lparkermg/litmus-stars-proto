@@ -41,6 +41,14 @@ public class OrbitController : MonoBehaviour
 		_speedPoint = 0.0f;
 	}
 
+	public Transform GetPlanetTransform(){
+		return Planet.GetTransform ();
+	}
+
+	public OrbitController GetOrbitController(){
+		return this;
+	}
+
 	private void SetOrbitingObjectPosition(){
 		Vector2 orbitPos = OrbitPath.Evaluate (OrbitProgress);
 		OrbitingObject.localPosition = new Vector3 (orbitPos.x, 0.0f, orbitPos.y);

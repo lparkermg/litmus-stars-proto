@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Planet : MonoBehaviour 
 {
 	private int _id; //So we don't get dupes.
+	public CinemachineVirtualCamera VirtualCam;
 
 	public void Initialise(int id){
 		_id = id;
@@ -22,5 +24,9 @@ public class Planet : MonoBehaviour
 
 	public int GetId(){
 		return _id;
+	}
+
+	public Transform GetTransform(){
+		return transform;
 	}
 }
